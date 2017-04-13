@@ -54,7 +54,16 @@ Describe "Get-PlotOfDays (Not really tests, just for eye-balling)" {
     Context "Plot 'nopqrstuvwxyz'" {
         Write-Host (Get-PlotOfDays (Get-ActivityDays "nopqrstuvwxyz"))
     }
-    Context "Plot '1234567890-=!`"'" {
-        Write-Host (Get-PlotOfDays (Get-ActivityDays "1234567890-=!`""))
+    Context "Plot '1234567890" {
+        Write-Host (Get-PlotOfDays (Get-ActivityDays "1234567890"))
+    }
+    Context "Plot '-=!`"'#$%^&*()_+" {
+        Write-Host (Get-PlotOfDays (Get-ActivityDays "-=!`"'#$%^&*()_+"))
+    }
+    Context "Plot '\/,.;:|<>?@~[]{}'" {
+        Write-Host (Get-PlotOfDays (Get-ActivityDays "\/,.;:|<>?@~[]{}"))
+    }
+    Context "Plot '£'" {
+        Write-Host (Get-PlotOfDays (Get-ActivityDays "`£"))
     }
 }
