@@ -21,6 +21,25 @@ function Get-PlotOfDays ($days) {
     return $plot;
 }
 
+Describe "Read-Font" {
+    Context "When I read the font file" {
+        $result = Read-Font ".\default-font.txt"
+
+        It "Builds a list of characters" {
+            $actualA = $result['A'];
+            $expectedA = @(
+                1, 2, 3, 4, 5,
+                8, 10,
+                15, 16, 17, 18, 19
+            )
+            $actualA.Length | Should Be $expectedA.Length
+            For ($i = 0; $i -lt $actualA.Length; $i++) {
+                $actualA[$i] | Should Be $expectedA[$i]
+            }
+        }
+    }
+}
+
 Describe "Get-ActivityDays" {
     Context "When I request 'TIM'" {
         $result = Get-ActivityDays "TIM"
