@@ -1,3 +1,22 @@
+function Get-PlotOfDays ($days) {
+    $plot = "";
+    $numberOfColumns = [Math]::Floor(($days | Sort-Object -Descending)[0] / 7);
+    for ($row = 0; $row -lt 7; $row++) {
+        for ($column = 0; $column -le $numberOfColumns; $column++) {
+            if ($days -contains ($row + ($column * 7))) {
+                $plot += "X";
+            }
+            else {
+                $plot += " ";
+            }
+            if ($column -eq $numberOfColumns) {
+                $plot += "`n";
+            }
+        }
+    }
+    return $plot;
+}
+
 function Get-NextDaysOffset ($dayNumber) {
     $weekNumber = [Math]::Floor($dayNumber / 7);
     return ($weekNumber + 2) * 7;
@@ -90,6 +109,8 @@ function Invoke-ActivityPlotter ([Parameter(Mandatory = $true)][DateTime] $first
     Write-Host "Days since first Sunday: $daysSinceFirstSunday";
 
     $activityDays = Get-ActivityDays($textToPlot);
+    $plot = Get-PlotOfDays($activityDays);
+    Write-Host "Plot for '$textToPlot':`n$plot";
     Write-Host "Activity Days for '$textToPlot': $activityDays";
 
     if ($activityDays -contains $daysSinceFirstSunday) {

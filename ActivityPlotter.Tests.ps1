@@ -2,25 +2,6 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 . "$here\$sut"
 
-function Get-PlotOfDays ($days) {
-    $plot = "";
-    $numberOfColumns = [Math]::Floor(($days | Sort-Object -Descending)[0] / 7);
-    for ($row = 0; $row -lt 7; $row++) {
-        for ($column = 0; $column -le $numberOfColumns; $column++) {
-            if ($days -contains ($row + ($column * 7))) {
-                $plot += "X";
-            }
-            else {
-                $plot += " ";
-            }
-            if ($column -eq $numberOfColumns) {
-                $plot += "`n";
-            }
-        }
-    }
-    return $plot;
-}
-
 Describe "Read-Font" {
     Context "When I read the font file" {
         $result = Read-Font ".\default-font.txt"
