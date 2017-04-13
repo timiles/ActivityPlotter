@@ -64,6 +64,6 @@ Describe "Get-PlotOfDays (Not really tests, just for eye-balling)" {
         Write-Host (Get-PlotOfDays (Get-ActivityDays "\/,.;:|<>?@~[]{}"))
     }
     Context "Plot '£'" {
-        Write-Host (Get-PlotOfDays (Get-ActivityDays "`£"))
+        Write-Host (Get-PlotOfDays (Get-ActivityDays "£"))
     }
 }
