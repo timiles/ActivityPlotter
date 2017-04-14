@@ -1,10 +1,10 @@
-function Get-PlotOfDays ($days) {
+﻿function Get-PlotOfDays ($days) {
     $plot = "";
     $numberOfColumns = [Math]::Floor(($days | Sort-Object -Descending)[0] / 7);
     for ($row = 0; $row -lt 7; $row++) {
         for ($column = 0; $column -le $numberOfColumns; $column++) {
             if ($days -contains ($row + ($column * 7))) {
-                $plot += "X";
+                $plot += "■";
             }
             else {
                 $plot += " ";
