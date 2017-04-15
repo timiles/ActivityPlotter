@@ -1,13 +1,22 @@
-﻿function Get-PlotOfDays ($days) {
+﻿function Get-PlotOfDays ($days, $dayToHighlight = -1) {
     $plot = "";
     $numberOfColumns = [Math]::Floor(($days | Sort-Object -Descending)[0] / 7);
     for ($row = 0; $row -lt 7; $row++) {
         for ($column = 0; $column -le $numberOfColumns; $column++) {
-            if ($days -contains ($row + ($column * 7))) {
-                $plot += "■";
+            $day = $row + ($column * 7);
+            if ($days -contains $day) {
+                if ($day -eq $dayToHighlight) {
+                    $plot += "Y";
+                } else {
+                    $plot += "X";
+                }
             }
             else {
-                $plot += " ";
+                if ($day -eq $dayToHighlight) {
+                    $plot += "N";
+                } else {
+                    $plot += " ";
+                }
             }
             if ($column -eq $numberOfColumns) {
                 $plot += "`n";
@@ -108,8 +117,8 @@ function Invoke-ActivityPlotter ([Parameter(Mandatory = $true)][DateTime] $first
     $daysSinceFirstSunday = ([DateTime]::Today - $firstSunday).TotalDays;
     Write-Host "Days since first Sunday: $daysSinceFirstSunday";
 
-    $activityDays = Get-ActivityDays($textToPlot);
-    $plot = Get-PlotOfDays($activityDays);
+    $activityDays = Get-ActivityDays $textToPlot;
+    $plot = Get-PlotOfDays $activityDays $daysSinceFirstSunday;
     Write-Host "Plot for '$textToPlot':`n$plot";
     Write-Host "Activity Days for '$textToPlot': $activityDays";
 
