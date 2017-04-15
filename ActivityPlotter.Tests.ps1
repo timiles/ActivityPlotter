@@ -41,6 +41,33 @@ Describe "Get-ActivityDays" {
     }
 }
 
+Describe "Get-PlotOfDays" {
+    Context "When I request 'i' with no dayToHighlight" {
+        $result = Get-PlotOfDays (Get-ActivityDays "i")
+
+        It "Returns the expected plot" {
+            $expected = " `nX`n `nX`nX`nX`n `n";
+            $result | Should Be $expected
+        }
+    }
+    Context "When I request 'i' with dayToHighlight 0" {
+        $result = Get-PlotOfDays (Get-ActivityDays "i") 0
+
+        It "Returns the expected plot" {
+            $expected = "N`nX`n `nX`nX`nX`n `n";
+            $result | Should Be $expected
+        }
+    }
+    Context "When I request 'i' with no dayToHighlight 1" {
+        $result = Get-PlotOfDays (Get-ActivityDays "i") 1
+
+        It "Returns the expected plot" {
+            $expected = " `nY`n `nX`nX`nX`n `n";
+            $result | Should Be $expected
+        }
+    }
+}
+
 Describe "Get-PlotOfDays (Not really tests, just for eye-balling)" {
     Context "Plot 'ABCDEFGHIJKLM'" {
         Write-Host (Get-PlotOfDays (Get-ActivityDays "ABCDEFGHIJKLM"))
