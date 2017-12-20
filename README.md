@@ -2,6 +2,8 @@
 
 A fun PowerShell script to plot messages in the activity chart of your github profile :grin:
 
+![Example activity plot](tim-rocks.png "Tim rocks")
+
 ## Example usage
 
 git init a new repo with a `readme.txt`.  Run something like the following on a daily schedule:
